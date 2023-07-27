@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PersonalWeblog</title>
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/font-awesome.css" />
+    <link rel="stylesheet" href="~/css/bootstrap.css" />
+    <link href="~/node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="~/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/node_modules/sweetalert2/dist/sweetalert2.css" rel="stylesheet">
+    <link href="~/node_modules/datatables.net-dt/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href='https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/PersonalWeblog.styles.css" asp-append-version="true" />
+</head>
+<body dir="rtl">
+    <header>
+        <div class="main-menu">
+            <div class="container">
+                <ul>
+                    <li><a href="#">صفحه اصلی</a></li>
+                    <li><a href="#">مقالات</a></li>
+                    <li><a href="#">تماس</a></li>
+                    <li><a href="#">درباره</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="top-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2">
+                        <img src="img/logo.png" alt="" class="logo">
+                    </div>
+                    <div class="col-md-5">
+                        <div class="index-h1">
+                            <h1>بهترین و متفاوت ترین مقالات آموزشی</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+    </header>
+    <div style="margin-top:50px;padding-bottom:10%;" class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="footer-contact">
+                            <span class="footer-title">چگونه با ما در تماس باشید</span>
+                            <ul>
+                                <li><a href="#" title="041311111111" data-toggle="tooltip"><i class="fa fa-phone"></i></a></li>
+                                <li><a href="#" title="تبریز " data-toggle="tooltip"><i class="fa fa-map-marker"></i></a></li>
+                                <li><a href="#" title="info@seo90.ir" data-toggle="tooltip"><i class="fa fa-envelope-o"></i></a></li>
+                                <li><a href="#" title="09352604271" data-toggle="tooltip"><i class="fa fa-mobile"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/node_modules/sweetalert2/dist/sweetalert2.js"></script>
+    <script src="~/node_modules/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/jquery.1.8.3.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.js"></script>
+    <script type="text/javascript" src="~/js/wow.js"></script>
+    <script type="text/javascript" src="~/js/jquery.particleground.js"></script>
+    <script>
+        jQuery("[data-toggle='tooltip']").tooltip();
+        jQuery('.footer').particleground({
+            dotColor: '#515151',
+            lineColor: '#515151'
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
