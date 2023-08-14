@@ -1,0 +1,25 @@
+﻿@model List<Domain.BlogAgg.Blog>
+@if (Model.Count != 0)
+{
+    @foreach (var blog in Model)
+    {
+        <div class="col-md-4">
+            <a href="#">
+                <div class="post-content">
+                    <figure>
+                        <img src="~/@blog.image.imgAddress" alt="@blog.image.alttext">
+                        <figcaption class="hover-fig">
+                            <i class="fa fa-plus"></i>
+                        </figcaption>
+                        <figcaption class="date-fig">
+                            <span>@blog.ReleaseDate.ToShortDateString()</span>
+                            <i class="fa fa-date"></i>
+                        </figcaption>
+                    </figure>
+                    <p>@blog.Description</p>
+                    <a href="@Url.Action("ArticleDownload","Home",new{area ="Main"})">دانلود</a>
+                </div>
+            </a>
+        </div>
+    }
+}

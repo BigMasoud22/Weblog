@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.DataProtection;
-using DataBase;
 using Microsoft.Extensions.FileProviders;
+using Infrastructure;
+using Infrastructure.ServiceIMP;
+using Domain.UserAgg;
+using Domain.BlogAgg;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,11 +12,13 @@ builder.Services.AddControllersWithViews();
 var optionsBuilder = builder.Services.AddDbContext<Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>() // Use AddIdentity here
+builder.Services.AddIdentity<IdentityUser, IdentityRole>() 
        .AddEntityFrameworkStores<Context>()
        .AddDefaultTokenProviders();
 
 #region Model services
+builder.Services.AddSingleton<IUserServices , UserServices>(); 
+builder.Services.AddSingleton<IBlogServices, BlogServices>();
 //builder.Services.AddDataProtection().PersistKeysToFileSystem(new DirectoryInfo(Path.GetTempPath()));
 #endregion
 builder.Services.AddControllersWithViews();
@@ -47,6 +51,7 @@ app.UseFileServer(new FileServerOptions()
     RequestPath = new PathString("/node_modules"),
     EnableDirectoryBrowsing = true
 });
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();

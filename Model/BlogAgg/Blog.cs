@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.UserAgg;
 
-namespace Model.Models
+namespace Domain.BlogAgg
 {
     public class Blog
     {
@@ -18,5 +20,6 @@ namespace Model.Models
 
         //public virtual Articleimages? Articleimages { get; set; }
         public virtual User Author { get; set; }
+        public virtual BlogImage? image { get; set; }
     }
 }
