@@ -4,6 +4,7 @@
   "main": "index.js",
   "dependencies": {
     "@sweetalert2/theme-dark": "^5.0.15",
+    "@sweetalert2/themes": "^5.0.15",
     "bootstrap": "^5.3.0",
     "bootstrap-icons": "^1.10.5",
     "datatables.net": "^1.13.5",
@@ -15,7 +16,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Masoud shooshtari",
   "license": "ISC",
-  "description": ""
+  "description": "The only point of this project is to demonstrate a clear OnionArchitecture in asp.net ",
+  "repository": {
+    "type": "git",
+    "url": "github.com/BigMasoud22/Weblog"
+  }
 }

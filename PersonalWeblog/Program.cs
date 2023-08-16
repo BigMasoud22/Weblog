@@ -1,10 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.FileProviders;
-using Infrastructure;
-using Infrastructure.ServiceIMP;
 using Domain.UserAgg;
-using Domain.BlogAgg;
+using Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,23 +10,19 @@ builder.Services.AddControllersWithViews();
 var optionsBuilder = builder.Services.AddDbContext<Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>() 
-       .AddEntityFrameworkStores<Context>()
-       .AddDefaultTokenProviders();
+//builder.Services.AddIdentity<User, IdentityRole>() 
+//       .AddEntityFrameworkStores<Context>()
+//       .AddDefaultTokenProviders();
 
 #region Model services
-builder.Services.AddSingleton<IUserServices , UserServices>(); 
-builder.Services.AddSingleton<IBlogServices, BlogServices>();
+//adding services through this method inside infrasturcture in order to reduce dependency in presentation layer
+DIServices.Configure(builder.Services);
+
+
 //builder.Services.AddDataProtection().PersistKeysToFileSystem(new DirectoryInfo(Path.GetTempPath()));
 #endregion
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-builder.Services.ConfigureApplicationCookie(t =>
-{
-    t.LoginPath = $"/Identity/Account/Login";
-    t.LogoutPath = $"/Identity/Account/Logout";
-    t.AccessDeniedPath = $"/Identity/Account/AccessDenied";
-});
 builder.Services.AddDataProtection();
 builder.Services.AddAuthentication();
 
@@ -44,13 +38,13 @@ if (app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-app.UseFileServer(new FileServerOptions()
-{
-    FileProvider = new PhysicalFileProvider(
-        Path.Combine(Directory.GetCurrentDirectory(), @"node_modules")),
-    RequestPath = new PathString("/node_modules"),
-    EnableDirectoryBrowsing = true
-});
+//app.UseFileServer(new FileServerOptions()
+//{
+//    FileProvider = new PhysicalFileProvider(
+//        Path.Combine(Directory.GetCurrentDirectory(), @"node_modules")),
+//    RequestPath = new PathString("/node_modules"),
+//    EnableDirectoryBrowsing = true
+//});
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();

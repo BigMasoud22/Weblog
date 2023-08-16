@@ -13,21 +13,12 @@ namespace PersonalWeblog.Areas.Main.Controllers
 		private Context _context;
 		private IUserServices _applicationUserService;
 		private IBlogServices _blogServices;
-		private RoleManager<IdentityRole> _roleManager;
-		private readonly UserManager<IdentityUser> _userManager;
-		private readonly SignInManager<IdentityUser> _signInManager;
 		public HomeController(Context context
 	   , IUserServices applicationUserService
-	   , UserManager<IdentityUser> userManager
-	   , RoleManager<IdentityRole> roleManager
-	   , SignInManager<IdentityUser> signInManager
 	   , IBlogServices blogServices)
 		{
-			_userManager = userManager;
 			_applicationUserService = applicationUserService;
 			_context = context;
-			_roleManager = roleManager;
-			_signInManager = signInManager;
 			_blogServices = blogServices;
 		}
 		#endregion

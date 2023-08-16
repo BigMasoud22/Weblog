@@ -21,13 +21,17 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.8" />
   </ItemGroup>
 
+	<ItemGroup>
+		<None Include="node_modules/**" ></None>
+	</ItemGroup>
+	
   <ItemGroup>
-    <ProjectReference Include="..\DataBase\Infrastructure.csproj" />
-    <ProjectReference Include="..\Model\Domain.csproj" />
+    <Folder Include="Areas\Admin\Controllers\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

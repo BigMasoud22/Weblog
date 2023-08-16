@@ -1,4 +1,4 @@
-﻿@model List<Domain.BlogAgg.Blog>
+﻿@model List<Application_Contracts.Application_Blog.BlogWithImageViewModel>
 @if (Model.Count != 0)
 {
     @foreach (var blog in Model)
@@ -7,12 +7,12 @@
             <a href="#">
                 <div class="post-content">
                     <figure>
-                        <img src="~/@blog.image.imgAddress" alt="@blog.image.alttext">
+                        <img src="~/@blog.imgAddress" alt="@blog.alttext">
                         <figcaption class="hover-fig">
                             <i class="fa fa-plus"></i>
                         </figcaption>
                         <figcaption class="date-fig">
-                            <span>@blog.ReleaseDate.ToShortDateString()</span>
+                            <span>@blog.CreationDate</span>
                             <i class="fa fa-date"></i>
                         </figcaption>
                     </figure>
