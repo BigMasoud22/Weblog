@@ -4,6 +4,7 @@ using Domain.UserAgg;
 using Infrastructure.ServiceIMP;
 using Microsoft.Extensions.DependencyInjection;
 using Application;
+using Domain.DomainServices;
 
 namespace Infrastructure
 {
@@ -14,6 +15,7 @@ namespace Infrastructure
             service.AddScoped<IUserServices, UserServices>();
             service.AddScoped<IBlogServices, BlogServices>();
             service.AddScoped<IBlogApplication, BlogApplication>();
+            service.AddScoped<IDomainValidator, DomainValidator>();
         }
     }
 }

@@ -16,6 +16,15 @@ namespace Domain.BlogAgg
         {
 
         }
+        public Blog(string title, string body, string description, DomainServices.IDomainValidator validator)
+        {
+            validator.IsBlogExists(this);
+            this.Title = title;
+            this.Body = body;
+            this.Description = description;
+            this.IsDeleted = false;
+            this.ReleaseDate = DateTime.Now;
+        }
         public Blog(string title, string body, string description)
         {
             this.Title = title;
@@ -25,25 +34,39 @@ namespace Domain.BlogAgg
             this.ReleaseDate = DateTime.Now;
         }
 
+        public Blog(int id, string title, string body, string description)
+        {
+            Id = id;
+            Title = title;
+            Body = body;
+            Description = description;
+        }
 
         public virtual User Author { get; set; }
         public virtual BlogImage? image { get; set; }
         public void AddImage(string imageAddress, string altText, string imageTitle)
         {
-            var picture = new BlogImage(imageTitle,altText,imageAddress);
+            var picture = new BlogImage(imageTitle, altText, imageAddress);
             this.image = picture;
         }
         public void Delete()
         {
             IsDeleted = true;
         }
+        public void Activate()
+        {
+            IsDeleted = false;
+        }
         public void Update(Blog blog)
         {
+            this.Id= blog.Id;
             this.Title = blog.Title;
             this.Body = blog.Body;
             this.Description = blog.Description;
-            this.IsDeleted = false;
-            this.ReleaseDate = blog.ReleaseDate;
+            if (blog.image != null)
+            {
+                this.image.UpdateImage(blog.image);
+            }
         }
     }
 }

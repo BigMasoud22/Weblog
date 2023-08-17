@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Domain.BlogAgg
+﻿namespace Domain.BlogAgg
 {
     public class BlogImage
     {
@@ -19,7 +16,7 @@ namespace Domain.BlogAgg
             this.alttext = alttext;
             this.imgAddress = imgAddress;
             Isdeleted = false;
-        }
+        } 
         public void Delete()
         {
             this.Isdeleted = true;

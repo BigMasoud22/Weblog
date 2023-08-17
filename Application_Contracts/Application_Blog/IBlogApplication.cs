@@ -6,6 +6,9 @@
         void CreateBlog(CreateBlogCommand command);
         void DeleteBlog(int blogId);
         BlogViewModel GetBlog(int blogId);
-        void UpdateBlog(BlogViewModel command);
+        UpdateBlogCommand GetBlog(int blogId , bool isUpdate);
+        void UpdateBlog(UpdateBlogCommand command);
+        List<BlogDemonstrateAdmin> GetBlogsForDemonstrate();
+        void ActivateBlog(int id);
     }
 }

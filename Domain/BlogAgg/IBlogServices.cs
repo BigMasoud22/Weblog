@@ -10,6 +10,5 @@ public interface IBlogServices
     bool DeleteBlog(int BlogId);
     bool AddBlog(Blog blog);
     bool Update(Blog blog);
-
-    bool UpdateImage(BlogImage image);
+    void ActivateBlog(int blogId);
 }

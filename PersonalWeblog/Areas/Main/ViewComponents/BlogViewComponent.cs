@@ -1,8 +1,7 @@
 ﻿using Application_Contracts.Application_Blog;
-using Domain.BlogAgg;
 using Microsoft.AspNetCore.Mvc;
 
-namespace PersonalWeblog.Areas.Main.ViewComponents;
+namespace PersonalWeblog.Main.ViewComponents;
 
 public class BlogViewComponent : ViewComponent
 {

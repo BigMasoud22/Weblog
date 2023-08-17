@@ -1,4 +1,5 @@
 ﻿using Domain.BlogAgg;
+using Domain.DomainServices;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -11,8 +12,17 @@ namespace Infrastructure.ServiceIMP
         {
             _context = context;
         }
+        public void ActivateBlog(int blogId)
+        {
+            var user = FindBlog(b => b.Id == blogId);
+            user.Activate();
+            _context.SaveChanges();
+        }
         public bool AddBlog(Blog blog)
         {
+            //setting the first record of the users as author beacause there is only one user currently
+            //and it has been initialized manually
+            blog.Author = _context.users.FirstOrDefault();
             _context.blogs.Add(blog);
             var saved = _context.SaveChanges();
             if (saved == 1)
@@ -31,11 +41,11 @@ namespace Infrastructure.ServiceIMP
         }
         public Blog FindBlog(Expression<Func<Blog, bool>> expression)
         {
-            return _context.blogs.Include(b => b.image).FirstOrDefault(expression);
+            return _context.blogs.Include(b => b.image).Include(b => b.Author).FirstOrDefault(expression);
         }
         public List<Blog> SelectAllBlogs()
         {
-            return _context.blogs.Include(b => b.image).ToList();
+            return _context.blogs.Include(b => b.image).Include(b => b.Author).ToList();
         }
         public List<Blog> SelectAllBlogs(Expression<Func<Blog, bool>> expression)
         {
@@ -43,19 +53,13 @@ namespace Infrastructure.ServiceIMP
         }
         public bool Update(Blog blog)
         {
-            //_context.Update(blog);
-            blog.Update(blog);
+            //the consentration is on blog at this point so 
+            //the blog author setted on the first record of users in database in order to preventing possible errors
+            blog.Author = _context.users.FirstOrDefault();
+            var TheBlog = FindBlog(b => b.Id == blog.Id);
+            TheBlog.Update(blog);
             var isSaved = _context.SaveChanges();
             if (isSaved == 1)
-                return true;
-
-            return false;
-        }
-        public bool UpdateImage(BlogImage image)
-        {
-            image.UpdateImage(image);
-            var isSaved = _context.SaveChanges();
-            if (isSaved ==1)
                 return true;
             return false;
         }
