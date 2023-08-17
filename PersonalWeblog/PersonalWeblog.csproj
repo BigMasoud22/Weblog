@@ -30,4 +30,9 @@
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Main\ViewComponents\" />
+    <Folder Include="wwwroot\images\Blogs\" />
+  </ItemGroup>
+
 </Project>

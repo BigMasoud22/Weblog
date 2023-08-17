@@ -7,13 +7,14 @@ namespace PersonalWeblog.Areas.Admin.Controllers
     public class AdminController : Controller
     {
         private readonly IBlogApplication _blogApplication;
-        public AdminController(IBlogApplication blogApplication)
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        public AdminController(IBlogApplication blogApplication, IWebHostEnvironment hostEnvironment)
         {
             _blogApplication = blogApplication;
+            _hostingEnvironment = hostEnvironment;
         }
         public IActionResult Index()
         {
-
             return View(_blogApplication.GetBlogsForDemonstrate());
         }
         [HttpGet]
@@ -23,22 +24,37 @@ namespace PersonalWeblog.Areas.Admin.Controllers
             return View(addBlogCommand);
         }
         [HttpPost]
-        public IActionResult CreateBlog(CreateBlogCommand command)
+        public IActionResult CreateBlog(IFormFile image, CreateBlogCommand command)
         {
-            command.ImageAddress = "this is a image address in asp test";
+            command.ImageAddress = UpsertImage(image);
             _blogApplication.CreateBlog(command);
             return Redirect("Index");
         }
+
+
         [HttpGet]
         public IActionResult UpdateBlog(int blogId)
         {
-            var blog = _blogApplication.GetBlog(blogId ,true);
+            var blog = _blogApplication.GetBlog(blogId, true);
             return View(blog);
         }
         [HttpPost]
-        public IActionResult UpdateBlog(UpdateBlogCommand command)
+        public IActionResult UpdateBlog(IFormFile? image, UpdateBlogCommand command)
         {
-            command.ImageAddress = "this is a image address in asp test";
+            if (image != null)
+            {
+                if (command.ImageAddress != null)
+                {
+                    var rootPath = _hostingEnvironment.WebRootPath;
+                    var oldPic = Path.Combine(rootPath, command.ImageAddress.TrimStart('\\'));
+                    if (System.IO.File.Exists(oldPic))
+                    {
+                        System.IO.File.Delete(oldPic);
+                    }
+                }
+                var newImageAddress = UpsertImage(image);
+                command.ImageAddress = newImageAddress;
+            }
             _blogApplication.UpdateBlog(command);
             return Redirect("Index");
         }
@@ -51,6 +67,19 @@ namespace PersonalWeblog.Areas.Admin.Controllers
         {
             _blogApplication.ActivateBlog(blogid);
             return Redirect("Index");
+        }
+        private string UpsertImage(IFormFile image)
+        {
+            var rootPath = _hostingEnvironment.WebRootPath;
+            var filename = Guid.NewGuid().ToString();
+            var uploadPath = Path.Combine(rootPath, @"images\Blogs");
+            var extension = Path.GetExtension(image.FileName);
+            using (var stream = new FileStream(Path.Combine(uploadPath, filename + extension), FileMode.Create))
+            {
+                image.CopyTo(stream);
+            }
+            var imageAddress = "images/Blogs/" + filename + extension;
+            return imageAddress;
         }
     }
 }

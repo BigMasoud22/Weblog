@@ -4,7 +4,7 @@
     @foreach (var blog in Model)
     {
         <div class="col-md-4">
-            <a href="#">
+            <a asp-controller="Home" asp-action="ViewBlogDetail" asp-route-blogId="@blog.Id">
                 <div class="post-content">
                     <figure>
                         <img src="~/@blog.ImageAddress" alt="@blog.AltText">
@@ -17,7 +17,7 @@
                         </figcaption>
                     </figure>
                     <p>@blog.BlogDescrioption</p>
-                    <a href="@Url.Action("ArticleDownload","Home",new{area ="Main"})">دانلود</a>
+                    <a href="@Url.Action("ArticleDownload","Home",new{area ="Main" , blogId = blog.Id})">دانلود</a>
                 </div>
             </a>
         </div>

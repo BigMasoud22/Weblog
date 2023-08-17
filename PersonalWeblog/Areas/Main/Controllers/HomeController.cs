@@ -1,7 +1,9 @@
-﻿using Domain.BlogAgg;
+﻿using Application_Contracts.Application_Blog;
+using Domain.BlogAgg;
 using Domain.UserAgg;
 using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Mime;
 
 namespace PersonalWeblog.Main.Controllers
 {
@@ -10,26 +12,41 @@ namespace PersonalWeblog.Main.Controllers
     {
         #region Services
         private Context _context;
-        private IUserServices _applicationUserService;
-        private IBlogServices _blogServices;
+        private IBlogApplication _blogServices;
+        private IWebHostEnvironment _webHostEnvironment;
         public HomeController(Context context
-       , IUserServices applicationUserService
-       , IBlogServices blogServices)
+       , IBlogApplication blogServices
+       , IWebHostEnvironment webHostEnvironment)
         {
-            _applicationUserService = applicationUserService;
             _context = context;
             _blogServices = blogServices;
+            _webHostEnvironment = webHostEnvironment;
         }
         #endregion
         public IActionResult Index()
         {
             return View();
         }
-        //public IActionResult ArticleDownload()
-        //{
-        //	var byteslice = System.IO.File.ReadAllBytes("wwwroot/CheetSheetPandas.pdf");
-        //	const string filename = "Article.pdf";
-        //	return File(byteslice, MediaTypeNames.Application.Pdf, filename);
-        //}
+        public IActionResult ArticleDownload(int blogId)
+        {
+            var blog = _blogServices.GetBlog(blogId);
+            var rootpath = _webHostEnvironment.WebRootPath;
+            var filename = "\\"+Guid.NewGuid().ToString();
+            using (var stream = new StreamWriter(_webHostEnvironment.WebRootPath + $"{filename}.txt", true, encoding: System.Text.Encoding.UTF8))
+            {
+                stream.WriteLine(blog.BlogTitle);
+                stream.Write(blog.BlogBody);
+            }
+
+            var byteslice = System.IO.File.ReadAllBytes(rootpath+filename+".txt");
+            string fullname = filename+".txt";
+            return File(byteslice, MediaTypeNames.Text.RichText, fullname);
+        }
+        public IActionResult ViewBlogDetail(int blogId)
+        {
+            var blog = _blogServices.GetBlog(blogId);
+            return View(blog);
+        }
+
     }
 }

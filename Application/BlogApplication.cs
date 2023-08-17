@@ -22,7 +22,7 @@ namespace Application
 
         public void CreateBlog(CreateBlogCommand command)
         {
-            var blog = new Blog(command.BlogTitle, command.BlogBody, command.BlogDescrioption , _validator);
+            var blog = new Blog(command.BlogTitle, command.BlogBody, command.BlogDescrioption, _validator);
             if (command.ImageTitle != null && command.ImageAddress != null && command.AltText != null)
             {
                 blog.AddImage(command.ImageAddress, command.AltText, command.ImageTitle);
@@ -38,7 +38,7 @@ namespace Application
         public List<BlogViewModel> GetAllBlogs()
         {
             var allBlogs = _services.SelectAllBlogs();
-            var ListBlogVM = allBlogs.Select(blog => new BlogViewModel
+            var ListBlogVM = allBlogs.Where(b => b.IsDeleted == false).Select(blog => new BlogViewModel
             {
                 Id = blog.Id,
                 BlogTitle = blog.Title,
@@ -87,8 +87,8 @@ namespace Application
         }
         public void UpdateBlog(UpdateBlogCommand commannd)
         {
-            var updateBlog = new Blog(commannd.Id,commannd.BlogTitle, commannd.BlogBody, commannd.BlogDescrioption);
-            updateBlog.AddImage(commannd.ImageAddress,commannd.AltText,commannd.ImageTitle);
+            var updateBlog = new Blog(commannd.Id, commannd.BlogTitle, commannd.BlogBody, commannd.BlogDescrioption);
+            updateBlog.AddImage(commannd.ImageAddress, commannd.AltText, commannd.ImageTitle);
             _services.Update(updateBlog);
         }
 
