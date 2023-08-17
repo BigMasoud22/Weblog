@@ -1,0 +1,52 @@
+﻿@model List<Application_Contracts.Application_Blog.BlogDemonstrateAdmin>
+@{
+    ViewData["Title"] = "Admin section";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<h2 class="mt-4">Blogs dashboard</h2>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Blog id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Author id</th>
+                <th>Is delete</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var blog in Model)
+            {
+                <tr>
+                    <td>@blog.blogId</td>
+                    <td>@blog.title</td>
+                    <td>@blog.desctiption</td>
+                    <td>@blog.authorId</td>
+                    <td>
+                        @if (blog.isDelete)
+                        {
+                            <i class="bi bi-check"></i>
+                        }
+                        else
+                        {
+                            <i class="bi bi-x-lg"></i>
+                        }
+                    </td>
+                    <td>
+                        @if (!blog.isDelete)
+                        {
+                            <a asp-action="DeleteBlog" asp-route-blogId="@blog.blogId" style="margin-right:10px;" class="btn btn-danger">Delete</a>
+                        }
+                        else
+                        {
+                            <a asp-action="ActivateBlog" asp-route-blogId="@blog.blogId" style="margin-right:10px;" class="btn btn-success">Activate</a>
+                        }
+                        <a asp-action="UpdateBlog" asp-route-blogId="@blog.blogId" style="margin-right:10px;" class="btn btn-primary">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

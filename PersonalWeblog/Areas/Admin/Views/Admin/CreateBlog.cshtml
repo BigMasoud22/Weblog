@@ -1,0 +1,32 @@
+﻿@model Application_Contracts.Application_Blog.CreateBlogCommand
+@{
+    ViewData["Title"] = "Create Blog";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<body>
+    <div class="container mt-4">
+        <h2 class="text-center">Create a New Blog Post</h2>
+        <form action="CreateBlog" method="POST">
+            <div class="form-group">
+                <input type="text" class="form-control" asp-for="@Model.BlogTitle" placeholder="Title" required>
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" asp-for="@Model.BlogDescrioption" placeholder="Description" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" asp-for="@Model.BlogBody" placeholder="Body" rows="6" required></textarea>
+            </div>
+            @*<div class="form-group">
+                <input type="file" class="form-control-file" asp-for="@Model.ImageAddress" accept="image/*" required>
+            </div>*@
+            <div class="form-group">
+                <input type="text" class="form-control" asp-for="@Model.ImageTitle" placeholder="Image Title" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" asp-for="@Model.AltText" placeholder="Image Alt Text" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+    </div>
+</body>
