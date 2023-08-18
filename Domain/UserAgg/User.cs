@@ -1,4 +1,5 @@
 ﻿using Domain.BlogAgg;
+using Domain.CommentAgg;
 
 namespace Domain.UserAgg
 {
@@ -6,7 +7,6 @@ namespace Domain.UserAgg
     {
         public int id { get; private set; }
         public string Email { get; private set; }
-        public string? Phonenumber { get; private set; }
         public string FullName { get; private set; }
         public bool IsActive { get; set; }
 
@@ -15,10 +15,9 @@ namespace Domain.UserAgg
 
         }
 
-        public User(string email, string? phonenumber, string fullName)
+        public User(string email, string fullName)
         {
             Email = email;
-            Phonenumber = phonenumber;
             FullName = fullName;
             IsActive = true;
         }
@@ -27,13 +26,13 @@ namespace Domain.UserAgg
         {
             IsActive = false;
         }
-        public void Update(string email, string phonenumber, string fullname)
+        public void Update(string email, string fullname)
         {
             this.Email = email;
-            this.Phonenumber = phonenumber;
             this.FullName = fullname;
         }
 
-        public virtual List<Blog>? Blogs { get; set; }
+        public virtual List<Blog>? blogs { get; set; }
+        public virtual List<Comment>? comments { get; set; }
     }
 }

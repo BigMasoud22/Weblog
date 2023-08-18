@@ -17,10 +17,9 @@ namespace Infrastructure.Mapping
             builder
                 .Property(t => t.FullName)
                 .IsRequired();
-            builder
-                .Property(t => t.Phonenumber)
-                .HasMaxLength(13)
-                .IsRequired();
+            builder.HasMany(c => c.comments)
+                .WithOne(u => u.user)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

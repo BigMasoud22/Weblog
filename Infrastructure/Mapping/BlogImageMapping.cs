@@ -21,9 +21,6 @@ namespace Infrastructure.Mapping
                 .Property(t => t.alttext)
                 .IsRequired()
                 .HasMaxLength(50);
-            builder.
-                HasOne(t => t.blog)
-                .WithOne(t => t.image);
         }
     }
 }

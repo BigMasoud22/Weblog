@@ -22,7 +22,7 @@ namespace Infrastructure.ServiceIMP
         {
             //setting the first record of the users as author beacause there is only one user currently
             //and it has been initialized manually
-            blog.Author = _context.users.FirstOrDefault();
+            blog.AssignAuthor(_context.users.FirstOrDefault());
             _context.blogs.Add(blog);
             var saved = _context.SaveChanges();
             if (saved == 1)
@@ -45,17 +45,17 @@ namespace Infrastructure.ServiceIMP
         }
         public List<Blog> SelectAllBlogs()
         {
-            return _context.blogs.Include(b => b.image).Include(b => b.Author).ToList();
+            return _context.blogs.Include(p => p.image).Include(u => u.Author).Include(c => c.comments).ToList();
         }
         public List<Blog> SelectAllBlogs(Expression<Func<Blog, bool>> expression)
         {
-            return _context.blogs.Where(expression).ToList();
+            return _context.blogs.Where(expression).Include(p => p.image).ToList();
         }
         public bool Update(Blog blog)
         {
             //the consentration is on blog at this point so 
             //the blog author setted on the first record of users in database in order to preventing possible errors
-            blog.Author = _context.users.FirstOrDefault();
+            blog.AssignAuthor(_context.users.FirstOrDefault());
             var TheBlog = FindBlog(b => b.Id == blog.Id);
             TheBlog.Update(blog);
             var isSaved = _context.SaveChanges();

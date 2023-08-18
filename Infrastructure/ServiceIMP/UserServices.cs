@@ -20,10 +20,11 @@ public class UserServices : IUserServices
         return false;
     }
 
-    public bool DeleteUser(int UserId)
+    public bool DeactiveUser(int UserId)
     {
-        var users = FindUser(u => u.id == UserId);
-        _context.users.Remove(users);
+        var user = FindUser(u => u.id == UserId);
+        //_context.users.Remove(users);
+        user.DeActive();
         var isSaved = _context.SaveChanges();
         if (isSaved == 1) return true;
         return false;

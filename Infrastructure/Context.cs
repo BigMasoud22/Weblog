@@ -1,4 +1,5 @@
 ﻿using Domain.BlogAgg;
+using Domain.CommentAgg;
 using Domain.UserAgg;
 using Infrastructure.Mapping;
 using Microsoft.EntityFrameworkCore;
@@ -13,8 +14,8 @@ public class Context : DbContext
     }
     public DbSet<User> users { get; set; }
     public DbSet<Blog> blogs { get; set; }
-    public DbSet<Blog> blog_images { get; set; }
-
+    public DbSet<BlogImage> blog_images { get; set; }
+    public DbSet<Comment> comments { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

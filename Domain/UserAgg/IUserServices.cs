@@ -8,7 +8,7 @@ public interface IUserServices
     List<User> SelectAllUsers();
     List<User> SelectAllUsers(Expression<Func<User, bool>> expression);
     User FindUser(Expression<Func<User, bool>> expression);
-    bool DeleteUser(int UserId);
+    bool DeactiveUser(int UserId);
     bool AddUser(User user);
     bool Update(User user);
 }
