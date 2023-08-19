@@ -22,7 +22,7 @@ public class UserServices : IUserServices
 
     public bool DeactiveUser(int UserId)
     {
-        var user = FindUser(u => u.id == UserId);
+        var user = FindUser(u => u.Id == UserId);
         //_context.users.Remove(users);
         user.DeActive();
         var isSaved = _context.SaveChanges();

@@ -47,8 +47,8 @@ namespace Application
                 IsDeleted = blog.IsDeleted,
                 BlogBody = blog.Body,
                 BlogDescrioption = blog.Description,
-                BlogAuthorId = blog.Author != null ? blog.Author.id : -1,
-                CreationDate = blog.ReleaseDate.ToShortDateString(),
+                BlogAuthorId = blog.Author != null ? blog.Author.Id : -1,
+                CreationDate = blog.CreateDate.ToShortDateString(),
                 ImageTitle = blog.image != null ? blog.image.Title : null,
             }).ToList();
 
@@ -67,8 +67,8 @@ namespace Application
                 IsDeleted = blog.IsDeleted,
                 BlogBody = blog.Body,
                 BlogDescrioption = blog.Description,
-                BlogAuthorId = blog.Author.id,
-                CreationDate = blog.ReleaseDate.ToShortDateString(),
+                BlogAuthorId = blog.Author.Id,
+                CreationDate = blog.CreateDate.ToShortDateString(),
                 ImageTitle = blog.image != null ? blog.image.Title : null,
             };
             return Blogvm;
@@ -82,7 +82,7 @@ namespace Application
                 desctiption = b.Description,
                 isDelete = b.IsDeleted,
                 title = b.Title,
-                authorId = b.Author.id,
+                authorId = b.Author.Id,
             }).ToList();
         }
         public void UpdateBlog(UpdateBlogCommand commannd)
@@ -103,7 +103,7 @@ namespace Application
                 ImageAddress = blog.image != null ? blog.image.imgAddress : null,
                 BlogBody = blog.Body,
                 BlogDescrioption = blog.Description,
-                BlogAuthorId = blog.Author.id,
+                BlogAuthorId = blog.Author.Id,
                 ImageTitle = blog.image != null ? blog.image.Title : null,
             };
             return Blogcmd;

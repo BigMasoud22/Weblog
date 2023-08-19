@@ -23,6 +23,7 @@ namespace Application
         public List<CommentDemonstrationViewModel> GetBlogComments(int blogId)
         {
             return _services.GetAllCommentsBy(c => c.blogId == blogId)
+                .Where(c=>c.status==(int)Domain.StatusCode.Confirmed)
                 .Select(v=>new CommentDemonstrationViewModel(v.blogId,v.user.FullName,v.text))
                 .ToList();
         }
@@ -41,7 +42,7 @@ namespace Application
                 BlogTitle = comment.blog.Title,
                 Status = comment.status,
                 Id = comment.Id,
-                userId = comment.user.id,
+                userId = comment.user.Id,
                 authorName = comment.user.FullName
             };
         }
@@ -64,7 +65,7 @@ namespace Application
             {
                 BlogTitle = v.blog.Title,
                 Content = v.text,
-                userId = v.user.id,
+                userId = v.user.Id,
                 Status = v.status,
                 Id = v.Id,
                 blogId = v.blogId,

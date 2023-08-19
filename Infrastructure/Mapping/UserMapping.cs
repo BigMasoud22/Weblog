@@ -9,7 +9,7 @@ namespace Infrastructure.Mapping
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder
-                .HasKey(t => t.id);
+                .HasKey(t => t.Id);
             builder
                 .Property(u => u.Email)
                 .HasMaxLength(70)

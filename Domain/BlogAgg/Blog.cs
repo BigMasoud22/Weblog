@@ -1,16 +1,15 @@
 ﻿using Domain.CommentAgg;
 using Domain.UserAgg;
+using Framework.Domain;
 
 namespace Domain.BlogAgg
 {
-    public class Blog
+    public class Blog : DomainBase<int>
     {
-        public int Id { get; private set; }
         public string Title { get; private set; }
         public string Body { get; private set; }
         public string Description { get; private set; }
         public bool IsDeleted { get; private set; }
-        public DateTime ReleaseDate = DateTime.Now;
 
         public Blog()
         {
@@ -23,7 +22,6 @@ namespace Domain.BlogAgg
             this.Body = body;
             this.Description = description;
             this.IsDeleted = false;
-            this.ReleaseDate = DateTime.Now;
         }
         public Blog(string title, string body, string description)
         {
@@ -31,11 +29,9 @@ namespace Domain.BlogAgg
             this.Body = body;
             this.Description = description;
             this.IsDeleted = false;
-            this.ReleaseDate = DateTime.Now;
         }
         public Blog(int id, string title, string body, string description)
         {
-            Id = id;
             Title = title;
             Body = body;
             Description = description;
@@ -50,7 +46,7 @@ namespace Domain.BlogAgg
         }
         public void AssignAuthor(User user)
         {
-            if(user == null)
+            if (user == null)
                 throw new ArgumentNullException("the author instance is null");
 
             this.Author = user;
@@ -65,7 +61,6 @@ namespace Domain.BlogAgg
         }
         public void Update(Blog blog)
         {
-            this.Id= blog.Id;
             this.Title = blog.Title;
             this.Body = blog.Body;
             this.Description = blog.Description;

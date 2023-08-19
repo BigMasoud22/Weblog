@@ -1,11 +1,11 @@
 ﻿using Domain.BlogAgg;
 using Domain.CommentAgg;
+using Framework.Domain;
 
 namespace Domain.UserAgg
 {
-    public class User
+    public class User : DomainBase<int>
     {
-        public int id { get; private set; }
         public string Email { get; private set; }
         public string FullName { get; private set; }
         public bool IsActive { get; private set; }
