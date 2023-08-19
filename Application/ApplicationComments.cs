@@ -20,16 +20,17 @@ namespace Application
             var comment = new Comment(command.Content, command.blogId);
             _services.AddComment(comment, command.Email, command.Fullname);
         }
-        public List<CommentViewModel> GetBlogComments(int blogId)
+        public List<CommentDemonstrationViewModel> GetBlogComments(int blogId)
         {
-            return _services.GetAllCommentsBy(c => c.blogId == blogId).Select(CommentViewModelInitialize()).ToList();
+            return _services.GetAllCommentsBy(c => c.blogId == blogId)
+                .Select(v=>new CommentDemonstrationViewModel(v.blogId,v.user.FullName,v.text))
+                .ToList();
         }
         public List<CommentViewModel> GetAllCommentsBy(int statusCode)
         {
             var comments = _services.GetAllCommentsBy(c => c.status == statusCode).Select(CommentViewModelInitialize()).ToList();
             return comments;
         }
-
         public CommentViewModel FindCommentBy(int commentId)
         {
             var comment = _services.FindComment(c => c.Id == commentId);
@@ -40,15 +41,14 @@ namespace Application
                 BlogTitle = comment.blog.Title,
                 Status = comment.status,
                 Id = comment.Id,
-                userId = comment.user.id
+                userId = comment.user.id,
+                authorName = comment.user.FullName
             };
         }
-
         public void DeleteComment(int commentId)
         {
             _services.DeleteComment(commentId);
         }
-
         public void ChangeStatusCode(int commentId, StatusCode code)
         {
             _services.ChangeStatusCode(commentId, code);
@@ -59,7 +59,7 @@ namespace Application
         }
         private static Func<Comment, CommentViewModel> CommentViewModelInitialize()
         {
-            //A piece of code must not be repeated 
+            //A piece of code must not be repeated so we declare an extract method to prevent it
             return v => new CommentViewModel
             {
                 BlogTitle = v.blog.Title,
@@ -67,7 +67,8 @@ namespace Application
                 userId = v.user.id,
                 Status = v.status,
                 Id = v.Id,
-                blogId = v.blogId
+                blogId = v.blogId,
+                authorName = v.user.FullName
             };
         }
     }

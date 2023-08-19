@@ -54,7 +54,7 @@ namespace Infrastructure.ServiceIMP
         }
         public List<Comment> GetAllCommentsBy(Expression<Func<Comment, bool>> expression)
         {
-            return _context.comments.Include(b => b.blog).Where(expression).ToList();
+            return _context.comments.Include(b => b.blog).Include(u=>u.user).Where(expression).ToList();
         }
 
         public List<Comment> GetAllCommentsBy()

@@ -5,7 +5,7 @@ namespace Application_Contracts.Application_Comment
     public interface IApplicationComments
     {
         void AddComment(AddCommentCommand command);
-        List<CommentViewModel> GetBlogComments(int blogId);
+        List<CommentDemonstrationViewModel> GetBlogComments(int blogId);
         List<CommentViewModel> GetAllCommentsBy(int statusCode);
         List<CommentViewModel> GetAllComments();
         CommentViewModel FindCommentBy(int commentId);

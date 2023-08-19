@@ -33,7 +33,8 @@
                 </form>
             </div>
             <div class="comments-note">
-                نظرات این مطلب
+                نظرات این مقاله
+                @await Component.InvokeAsync("BlogComments",Model.Id);
             </div>
         </div>
     </div>

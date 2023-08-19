@@ -7,13 +7,7 @@
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/css/font-awesome.css" />
     <link rel="stylesheet" href="~/css/bootstrap.css" />
-    @*
-    <link href="~/node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
-    <link href="~/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/node_modules/sweetalert2/dist/sweetalert2.css" rel="stylesheet">
-    <link href="~/node_modules/datatables.net-dt/css/jquery.dataTables.min.css" rel="stylesheet" />*@
     <link href='https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css' rel='stylesheet' type='text/css'>
-
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PersonalWeblog.styles.css" asp-append-version="true" />
 </head>
@@ -22,10 +16,9 @@
         <div class="main-menu">
             <div class="container">
                 <ul>
-                    <li><a href="#">صفحه اصلی</a></li>
-                    <li><a href="#">مقالات</a></li>
-                    <li><a href="#">تماس</a></li>
-                    <li><a href="#">درباره</a></li>
+                    <li><a asp-controller="Home" asp-action="Index">صفحه اصلی</a></li>
+                    <li><a href="https://github.com/BigMasoud22">تماس</a></li>
+                    <li><a href="https://github.com/BigMasoud22">درباره</a></li>
                 </ul>
             </div>
         </div>
@@ -109,9 +102,8 @@
                         <div class="footer-contact">
                             <span class="footer-title">چگونه با ما در تماس باشید</span>
                             <ul>
-                                <li><a href="#" title="041311111111" data-toggle="tooltip"><i class="fa fa-phone"></i></a></li>
-                                <li><a href="#" title="تبریز " data-toggle="tooltip"><i class="fa fa-map-marker"></i></a></li>
-                                <li><a href="#" title="info@seo90.ir" data-toggle="tooltip"><i class="fa fa-envelope-o"></i></a></li>
+                                <li><a href="#" title="تهران" data-toggle="tooltip"><i class="fa fa-map-marker"></i></a></li>
+                                <li><a href="#" title="mwsoush.84@gmail.com" data-toggle="tooltip"><i class="fa fa-envelope-o"></i></a></li>
                                 <li><a href="#" title="09352604271" data-toggle="tooltip"><i class="fa fa-mobile"></i></a></li>
                             </ul>
                         </div>
@@ -120,18 +112,7 @@
             </div>
         </div>
     </footer>
-
-    @*  <script src="~/node_modules/sweetalert2/dist/sweetalert2.js"></script>
-    <script src="~/node_modules/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script type="text/javascript" src="~/js/jquery.1.8.3.min.js"></script>
-    <script type="text/javascript" src="~/js/bootstrap.js"></script>
-    <script type="text/javascript" src="~/js/wow.js"></script>
-    <script type="text/javascript" src="~/js/jquery.particleground.js"></script>*@
     <script type="text/javascript" src="@Url.Action("MyJs","Home",new {area = "Main"})>"></script>
-
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

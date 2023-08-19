@@ -1,0 +1,12 @@
+﻿@using Application_Contracts.Application_Comment;
+@model List<CommentDemonstrationViewModel>
+@foreach (var comment in Model)
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">نام نویسنده:<strong>@comment.AuthorName</strong></h5>
+            <p class="card-text">@comment.Content</p>
+        </div>
+    </div>
+    <hr />
+}
