@@ -16,19 +16,20 @@
             <hr>
             <div class="comment">
                 <span><i class="fa fa-comments"></i>نظری برای این مطلب بنویسید</span>
-                <form action="" method="">
+                <form action="AddComment" method="post">
                     <div class="form-group col-md-6">
-                        <input class="form-control" type="text" name="user_name" placeholder="نام خود را وارد کنید">
+                        <input class="form-control" type="text" name="Fullname" id="Fullname" placeholder="نام خود را وارد کنید">
                     </div>
                     <div class="form-group col-md-6">
-                        <input class="form-control" type="email" name="user_email" placeholder="ایمیل را واردکنید">
+                        <input class="form-control" type="email" name="Email" id="Email" placeholder="ایمیل را واردکنید">
                     </div>
                     <div class="form-group col-md-12">
-                        <textarea class="form-control" name="user_comment" placeholder="متن نظر" rows="7"></textarea>
+                        <textarea class="form-control" name="Content" id="Content" placeholder="متن نظر" rows="7"></textarea>
                     </div>
                     <div class="form-group col-md-12">
                         <button class="btn btn-default" type="submit">ارسال نظر</button>
                     </div>
+                    <input type="hidden" name="blogId" value="@Model.Id" id="blogId" />
                 </form>
             </div>
             <div class="comments-note">

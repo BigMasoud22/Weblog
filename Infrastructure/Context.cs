@@ -19,8 +19,7 @@ public class Context : DbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        builder.ApplyConfiguration(new BlogMapping());
-        builder.ApplyConfiguration(new BlogImageMapping());
-        builder.ApplyConfiguration(new UserMapping());
+        var assembly = typeof(Mapping.BlogMapping).Assembly;
+        builder.ApplyConfigurationsFromAssembly(assembly);
     }
 }

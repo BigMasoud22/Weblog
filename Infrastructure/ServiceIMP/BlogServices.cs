@@ -1,5 +1,4 @@
 ﻿using Domain.BlogAgg;
-using Domain.DomainServices;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -18,11 +17,14 @@ namespace Infrastructure.ServiceIMP
             user.Activate();
             _context.SaveChanges();
         }
-        public bool AddBlog(Blog blog)
+        public bool AddBlog(Blog blog ,string email,string fullname)
         {
-            //setting the first record of the users as author beacause there is only one user currently
-            //and it has been initialized manually
-            blog.AssignAuthor(_context.users.FirstOrDefault());
+            var user = _context.users.FirstOrDefault(u=>u.Email==email&&u.FullName==fullname);
+            if (user == null)
+            {
+                user = new Domain.UserAgg.User(email,fullname);
+            }
+            blog.AssignAuthor(user);
             _context.blogs.Add(blog);
             var saved = _context.SaveChanges();
             if (saved == 1)

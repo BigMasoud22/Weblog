@@ -27,7 +27,7 @@ namespace Application
             {
                 blog.AddImage(command.ImageAddress, command.AltText, command.ImageTitle);
             }
-            _services.AddBlog(blog);
+            _services.AddBlog(blog, command.Email, command.Fullname);
         }
 
         public void DeleteBlog(int blogId)

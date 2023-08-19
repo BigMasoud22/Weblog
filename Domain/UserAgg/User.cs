@@ -8,7 +8,7 @@ namespace Domain.UserAgg
         public int id { get; private set; }
         public string Email { get; private set; }
         public string FullName { get; private set; }
-        public bool IsActive { get; set; }
+        public bool IsActive { get; private set; }
 
         public User()
         {
@@ -20,6 +20,7 @@ namespace Domain.UserAgg
             Email = email;
             FullName = fullName;
             IsActive = true;
+            blogs = new List<Blog>();
         }
 
         public void DeActive()
@@ -31,8 +32,7 @@ namespace Domain.UserAgg
             this.Email = email;
             this.FullName = fullname;
         }
-
-        public virtual List<Blog>? blogs { get; set; }
-        public virtual List<Comment>? comments { get; set; }
+        public virtual List<Blog>? blogs { get; private set; }
+        public virtual List<Comment>? comments { get; private set; }
     }
 }

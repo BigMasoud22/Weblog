@@ -9,6 +9,8 @@ namespace Application_Contracts.Application_Blog
         public string BlogDescrioption { get; set; }
         public string BlogBody { get; set; }
         public int BlogAuthorId { get; set; }
+        public string Email { get; set; }
+        public string Fullname { get; set; }
         public string? ImageAddress { get; set; }
         public string? AltText { get; set; }
         public string? ImageTitle { get; set; }

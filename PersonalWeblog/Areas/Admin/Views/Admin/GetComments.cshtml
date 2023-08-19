@@ -1,0 +1,62 @@
+﻿@using Application_Contracts.Application_Comment;
+@model List<CommentViewModel>
+@{
+    ViewData["Title"] = "GetComments";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="mt-4">Blogs dashboard</h2>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Content</th>
+                <th>Blog title</th>
+                <th>Author id</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var comment in Model)
+            {
+                <tr>
+                    <td>@comment.blogId</td>
+                    <td>@comment.Content</td>
+                    <td>@comment.BlogTitle</td>
+                    <td>@comment.userId</td>
+                    <td>
+                        @if (comment.Status == (int)Domain.StatusCode.Confirmed)
+                        {
+                            <i class="bi bi-check-circle-fill"></i>
+                        }
+                        else if (comment.Status == (int)Domain.StatusCode.Checking)
+                        {
+                            <i class="bi bi-envelope-exclamation-fill"></i>
+                        }
+                        else
+                        {
+                            <i class="bi bi-x-circle-fill"></i>
+                        }
+                    </td>
+                    <td>
+                        @if (comment.Status == (int)Domain.StatusCode.Confirmed)
+                        {
+                            <a asp-action="ChangeStatus" asp-route-commentId="@comment.Id" asp-route-code="@Domain.StatusCode.Canseled" style="margin-right:10px;" class="btn btn-danger">Cansel</a>
+                        }
+                        else if (comment.Status == (int)Domain.StatusCode.Checking)
+                        {
+                            <a asp-action="ChangeStatus" asp-route-commentId="@comment.Id" asp-route-code="@Domain.StatusCode.Canseled" style="margin-right:10px;" class="btn btn-danger">Cansel</a>
+                            <a asp-action="ChangeStatus" asp-route-commentId="@comment.Id" asp-route-code="@Domain.StatusCode.Confirmed" style="margin-right:10px;" class="btn btn-success">Confirm</a>
+                        }
+                        else
+                        {
+                            <a asp-action="ChangeStatus" asp-route-commentId="@comment.Id" asp-route-code="@Domain.StatusCode.Confirmed" style="margin-right:10px;" class="btn btn-success">Confirm</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

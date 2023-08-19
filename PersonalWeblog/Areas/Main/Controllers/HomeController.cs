@@ -1,4 +1,5 @@
 ﻿using Application_Contracts.Application_Blog;
+using Application_Contracts.Application_Comment;
 using Domain.BlogAgg;
 using Domain.UserAgg;
 using Infrastructure;
@@ -14,13 +15,16 @@ namespace PersonalWeblog.Main.Controllers
         private Context _context;
         private IBlogApplication _blogServices;
         private IWebHostEnvironment _webHostEnvironment;
+        private IApplicationComments _applicationComments;
         public HomeController(Context context
        , IBlogApplication blogServices
-       , IWebHostEnvironment webHostEnvironment)
+       , IWebHostEnvironment webHostEnvironment
+       , IApplicationComments applicationComments)
         {
             _context = context;
             _blogServices = blogServices;
             _webHostEnvironment = webHostEnvironment;
+            _applicationComments = applicationComments;
         }
         #endregion
         public IActionResult Index()
@@ -46,6 +50,12 @@ namespace PersonalWeblog.Main.Controllers
         {
             var blog = _blogServices.GetBlog(blogId);
             return View(blog);
+        }
+        [HttpPost]
+        public IActionResult AddComment(AddCommentCommand command)
+        {
+            _applicationComments.AddComment(command);
+            return Redirect($"ViewBlogDetail?blogId={command.blogId}");
         }
 
     }

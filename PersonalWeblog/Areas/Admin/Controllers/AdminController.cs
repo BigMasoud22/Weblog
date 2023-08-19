@@ -1,4 +1,5 @@
 ﻿using Application_Contracts.Application_Blog;
+using Application_Contracts.Application_Comment;
 using Microsoft.AspNetCore.Mvc;
 
 namespace PersonalWeblog.Areas.Admin.Controllers
@@ -8,10 +9,12 @@ namespace PersonalWeblog.Areas.Admin.Controllers
     {
         private readonly IBlogApplication _blogApplication;
         private readonly IWebHostEnvironment _hostingEnvironment;
-        public AdminController(IBlogApplication blogApplication, IWebHostEnvironment hostEnvironment)
+        private readonly IApplicationComments _applicationComments;
+        public AdminController(IBlogApplication blogApplication, IWebHostEnvironment hostEnvironment, IApplicationComments applicationComments)
         {
             _blogApplication = blogApplication;
             _hostingEnvironment = hostEnvironment;
+            _applicationComments = applicationComments;
         }
         public IActionResult Index()
         {
@@ -30,8 +33,6 @@ namespace PersonalWeblog.Areas.Admin.Controllers
             _blogApplication.CreateBlog(command);
             return Redirect("Index");
         }
-
-
         [HttpGet]
         public IActionResult UpdateBlog(int blogId)
         {
@@ -68,6 +69,17 @@ namespace PersonalWeblog.Areas.Admin.Controllers
             _blogApplication.ActivateBlog(blogid);
             return Redirect("Index");
         }
+        [HttpGet]
+        public IActionResult GetComments()
+        {
+            var comments = _applicationComments.GetAllComments();
+            return View(comments);
+        }
+        public IActionResult ChangeStatus(int commentId,Domain.StatusCode code)
+        {
+            _applicationComments.ChangeStatusCode(commentId,code);
+            return Redirect("GetComments");
+        }
         private string UpsertImage(IFormFile image)
         {
             var rootPath = _hostingEnvironment.WebRootPath;
@@ -81,5 +93,6 @@ namespace PersonalWeblog.Areas.Admin.Controllers
             var imageAddress = "images/Blogs/" + filename + extension;
             return imageAddress;
         }
+
     }
 }

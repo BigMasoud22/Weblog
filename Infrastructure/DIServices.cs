@@ -5,6 +5,8 @@ using Infrastructure.ServiceIMP;
 using Microsoft.Extensions.DependencyInjection;
 using Application;
 using Domain.DomainServices;
+using Domain.CommentAgg;
+using Application_Contracts.Application_Comment;
 
 namespace Infrastructure
 {
@@ -16,6 +18,8 @@ namespace Infrastructure
             service.AddScoped<IBlogServices, BlogServices>();
             service.AddScoped<IBlogApplication, BlogApplication>();
             service.AddScoped<IDomainValidator, DomainValidator>();
+            service.AddScoped<ICommentServices, CommentServices>();
+            service.AddScoped<IApplicationComments, ApplicationComments>();
         }
     }
 }
